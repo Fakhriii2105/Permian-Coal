@@ -1,0 +1,805 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: 'Inter', sans;
+    background-color: #000;
+}
+
+
+/* ================= NAVBAR ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* FIXED via header only */
+.navbar {
+    width: 100%;
+    padding: 25px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    transition: 0.35s ease;
+    z-index: 9999;
+}
+
+header .navbar.scrolled {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0)
+    ) !important;
+    backdrop-filter: blur(4px);
+}
+
+
+/* ================= LOGO ================= */
+.logo {
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+}
+.logo span {
+    color: #e0a341;
+}
+
+/* ================= BURGER ================= */
+.burger {
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    cursor: pointer;
+    z-index: 4500; /* ABOVE EVERYTHING */
+}
+
+.burger div {
+    width: 35px;
+    height: 4px;
+    background: white;
+    transition: 0.4s ease;
+}
+
+/* ANIMATION: BURGER → X */
+.burger.active .line1 {
+    transform: translateY(11px) rotate(45deg);
+}
+.burger.active .line2 {
+    opacity: 0;
+}
+.burger.active .line3 {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* ================= MEGAMENU (FULLSCREEN) ================= */
+.megamenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+
+    padding: 0 80px;
+    transition: opacity 0.45s ease-out, visibility 0.45s ease-out, transform 0.45s ease-out;
+    transform: scale(1.02);
+    opacity: 0;
+    z-index: 3000; /* BELOW NAVBAR */
+}
+
+/* ACTIVE = FULLSCREEN */
+.megamenu.active {
+    height: 100vh;
+    opacity: 1;
+    scale: 1;
+}
+.megamenu.closing {
+    height: 100vh; /* JANGAN langsung dipotong */
+    opacity: 0;
+}
+
+
+/* ================= MENU COLUMN ================= */
+.menu-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+    padding: 0 30px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    color: white;
+}
+
+.menu-col:last-child {
+    border-right: none;
+}
+
+.menu-col h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.menu-col a {
+    text-decoration: none;
+    color: #ddd;
+    transition: 0.3s;
+}
+.menu-col a:hover {
+    color: #e0a341;
+}
+
+/* ================= HERO ================= */
+.hero {
+    width: 100%;
+    height: 100vh;
+    background: url("../img/hero.jpg") center/cover no-repeat;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.85),
+        rgba(0,0,0,0.4),
+        rgba(0,0,0,0)
+    );
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 64px;
+    color: white;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.hero-content span {
+    color: #e0a341;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .navbar {
+        padding: 20px 30px;
+        background: transparent;
+    }
+
+    .megamenu {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px;
+    }
+
+    .menu-col {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding-bottom: 20px;
+    }
+
+    .menu-col:last-child {
+        border: none;
+    }
+}
+
+/* ================= COMPANY OVERVIEW ================= */
+
+.overview {
+    display: flex;
+    width: 100%;
+    min-height: 90vh;
+    padding: 0 80px;
+    background: #000; /* supaya nyatu dengan hero / menyamarkan topo */
+    position: relative;
+}
+
+/* LEFT SIDE = 25% */
+.overview-left {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    color: white;
+    z-index: 2;
+}
+
+.overview-subtitle {
+    color: #e0a341;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.overview-title {
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.overview-desc {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.overview-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    backdrop-filter: blur(3px);
+}
+
+.overview-btn:hover {
+    color: #e0a341;
+}
+
+.arrow-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.overview-btn:hover .arrow-circle {
+    border-color: white;
+    transform: translateX(4px);
+}   
+
+/* RIGHT SIDE = 75%, Topographic Background */
+.overview-right {
+    width: 75%;
+    background: url("../img/topo.png") center/cover no-repeat;
+    opacity: 2; 
+    mix-blend-mode: screen; /* menyatu dengan background hitam */
+    position: relative;
+}
+
+/* OPTIONAL: Gradient overlay biar lebih halus */
+.overview-right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    z-index: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .overview {
+        flex-direction: column;
+        padding: 60px 30px;
+    }
+
+    .overview-left {
+        width: 100%;
+    }
+
+    .overview-right {
+        width: 100%;
+        height: 300px;
+        margin-top: 40px;
+    }
+}
+
+/* SECTION WRAPPER */
+.operations {
+  padding: 120px 80px;
+  background: #0e0e0e;
+  color: #fff;
+  position: relative;
+}
+
+/* HEADER */
+.ops-header {
+  max-width: 650px;
+  margin-bottom: 60px;
+}
+
+.ops-header span {
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  opacity: 1;
+  color: #e0a341;
+}
+
+.ops-header h2 {
+  font-size: 42px;
+  margin: 10px 0 15px;
+  font-weight: 400;
+}
+
+.ops-header p {
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+/* GRID */
+.ops-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+/* CARD */
+.ops-card {
+  background: #151515;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .35s ease, box-shadow .35s ease;
+  cursor: pointer;
+}
+
+.ops-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* THUMBNAIL IMG */
+.ops-img {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.85);
+  transition: filter .35s ease;
+}
+
+.ops-card:hover .ops-img {
+  filter: brightness(1);
+}
+
+/* CONTENT */
+.ops-content {
+  padding: 22px 25px 30px;
+}
+
+.ops-content h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.ops-content p {
+  opacity: 0.75;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+/* LINK */
+.ops-link {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all .25s ease;
+}
+
+.ops-link:hover {
+  border-bottom: 1px solid #fff;
+  padding-bottom: 3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .ops-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .operations {
+    padding: 100px 35px;
+  }
+  .ops-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= SUSTAINABILITY ================= */
+.sustainability {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* LEFT SIDE (65%) */
+.sustain-left {
+    width: 65%;
+    padding: 120px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    z-index: 2;
+}
+
+.sustain-left h2 {
+    font-size: 42px;
+    font-weight: 400;
+    color: #111;
+}
+
+.sustain-left p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+    color: #444;
+}
+
+.sustain-left p span{
+    color: #e0a341;
+}
+
+/* BUTTON */
+.sustain-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #111;
+    transition: 0.3s;
+}
+
+.circle-arrow {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #111;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.sustain-btn:hover {
+    color: #e0a341;
+}
+
+.sustain-btn:hover .circle-arrow {
+    border-color: #e0a341;
+    transform: translateX(4px);
+}
+
+/* ================= RIGHT SIDE — IMAGE FULL BLEED ================= */
+.sustain-right {
+    width: 35%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sustain-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* Bikin gambar tetap BESAR */
+    object-position: center;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .sustainability {
+        flex-direction: column;
+    }
+
+    .sustain-left {
+        width: 100%;
+        padding: 60px 30px;
+    }
+
+    .sustain-right {
+        width: 100%;
+        height: 300px;
+        position: relative; /* supaya turun ke bawah */
+    }
+
+    .sustain-right img {
+        object-fit: cover;
+    }
+}
+
+/* ===================== CSR MINI HERO ===================== */
+.csr-hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: url("../img/csr.jpg") center/cover no-repeat fixed; /* PARALLAX */
+    color: #fff;
+    box-sizing: border-box;
+}
+
+/* Overlay biar teks kebaca */
+.csr-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+    z-index: 1;
+}
+
+/* Judul kiri atas */
+.csr-title {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    z-index: 2;
+}
+
+.csr-title h2 {
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+/* Deskripsi kanan bawah — LITERALLY pojok kanan bawah */
+.csr-desc {
+    position: absolute;
+    right: 60px;     /* jarak dari sisi kanan */
+    bottom: 40px;    /* jarak dari sisi bawah */
+    width: 40%;      /* biar ga kepanjangan */
+    text-align: right;
+    z-index: 2;
+}
+
+.csr-desc p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+/* Button */
+.csr-btn {
+    display: inline-block;
+    font-size: 16px;
+    padding-bottom: 3px;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 2px solid #fff;
+    transition: 0.3s ease;
+}
+
+.csr-btn:hover {
+    opacity: 0.7;
+}
+
+.news-section {
+    padding: 120px 80px;
+    background: #000;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-bottom: 250px;
+}
+
+.news-title{
+    font-weight: 400;
+    font-size: 42px;
+}
+
+/* ================= FEATURED ================= */
+.news-featured {
+    display: flex;
+    gap: 40px;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.news-featured img {
+    width: 45%;
+    object-fit: cover;
+}
+
+.featured-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.news-date {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.featured-title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.featured-desc {
+    font-size: 17px;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.news-readmore {
+    margin-top: 10px;
+    text-decoration: none;
+    color: #e0a341;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.news-readmore:hover {
+    color: white;
+}
+
+/* ================= SMALL NEWS ================= */
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.news-card-small {
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news-card-small:hover {
+    transform: translateY(-4px);
+}
+
+.news-card-small img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.small-info {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.small-info h3 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.small-info p {
+    font-size: 16px;
+    color: #ccc;
+}
+
+.footer {
+    position: relative;
+    padding: 100px 80px 40px;
+    color: white;
+    background: url("../img/topography-footer.png") center/cover no-repeat;
+}
+
+/* Overlayer biar topo ga terlalu terang */
+.footer-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.9),
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.7)
+    );
+    z-index: 1;
+}
+
+.footer-container {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: 300;
+}
+.footer-logo span {
+    color: #e0a341;
+}
+
+.footer-tagline {
+    margin-top: 15px;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-col h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.footer-col a {
+    color: #ddd;
+    font-size: 15px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: #e0a341;
+}
+
+/* COPYRIGHT */
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+}
